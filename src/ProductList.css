@@ -127,6 +127,10 @@ body {
     transition: background-color 0.3s ease-in-out;
     margin-top: 10px;
 }
+.product-button:disabled {
+    background-color: #7b7979;
+    color: #9c8f8f;
+}
 
 .product-button:hover {
     background-color: #c0392b;

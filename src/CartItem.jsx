@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars,react/prop-types */
 import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CartSlice';
+import {useSelector, useDispatch} from 'react-redux';
+import {addItem, removeItem, updateQuantity} from './CartSlice';
 import './CartItem.css';
 
 
-const CartItem = ({ onContinueShopping }) => {
+const CartItem = ({onContinueShopping}) => {
     const cart = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
-    const [addedToCart, setAddedToCart] = useState({});
 
     const calculateTotalAmount = () => {
         let totalCost = 0;
@@ -24,22 +23,23 @@ const CartItem = ({ onContinueShopping }) => {
     };
 
     const handleIncrement = (item) => {
-        dispatch(updateQuantity({name: item.name, quantity: item.quantity+1}));
+        dispatch(updateQuantity({name: item.name, quantity: item.quantity + 1}));
         console.log(item.name + " - " + item.quantity);
     };
 
     const handleDecrement = (item) => {
         if (item.quantity > 1) {
-        dispatch(updateQuantity({name: item.name, quantity: item.quantity-1}));
-        console.log(item.name);}
+            dispatch(updateQuantity({name: item.name, quantity: item.quantity - 1}));
+            console.log(item.name);
+        }
     };
 
     const handleRemove = (item) => {
         dispatch(removeItem(item));
-        setAddedToCart((prevState) => ({
-            ...prevState,
-            [item.name]: false,
-        }));
+        // setAddedToCart((prevState) => ({
+        //     ...prevState,
+        //     [item.name]: false,
+        // }));
     };
 
 
@@ -87,7 +87,6 @@ const CartItem = ({ onContinueShopping }) => {
         </div>
     );
 };
-
 export default CartItem;
 
 

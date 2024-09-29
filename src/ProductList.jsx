@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-import {useState} from 'react';
+import React, {useState} from 'react';
 import './ProductList.css'
 import CartItem from './CartItem';
-import {addItem, updateQuantity} from './CartSlice';
 import {useDispatch, useSelector} from "react-redux";
+import {addItem} from "./CartSlice.jsx";
 
 function ProductList() {
     const [showCart, setShowCart] = useState(false);
@@ -18,14 +18,7 @@ function ProductList() {
         });
         return totalCount;
     };
-    const handleAddToCart = (product) => {
-        dispatch(addItem(product));
-        console.log(product);
-        setAddedToCart((prevState) => ({
-            ...prevState,
-            [product.name]: true,
-        }));
-    };
+
 
     const plantsArray = [
         {
@@ -260,6 +253,22 @@ function ProductList() {
         fontSize: '1.4em',
         textDecoration: 'none',
     }
+    const styleC = {
+        color: 'white',
+        fontSize: '24px',
+        fontWeight: '600',
+        textDecoration: 'none',
+    }
+
+    const handleAddToCart = (product) => {
+        dispatch(addItem(product));
+        console.log(product);
+        setAddedToCart((prevState) => ({
+            ...prevState,
+            [product.name]: true,
+        }));
+    };
+
     const handleCartClick = (e) => {
         e.preventDefault();
         setShowCart(true); // Set showCart to true when cart icon is clicked
@@ -284,21 +293,21 @@ function ProductList() {
                         <img src="https://cdn.pixabay.com/photo/2020/08/05/13/12/eco-5465432_1280.png" alt=""/>
                         <a href="/" style={{textDecoration: 'none'}}>
                             <div>
-                                <h3 style={{color: 'white'}}>Paradise Nursery</h3>
-                                <i style={{color: 'white'}}>Where Green Meets Serenity</i>
+                                <h3 style={{color: 'white', paddingLeft: '5px'}}>Paradise Nursery</h3>
+                                <i style={{color: 'white', paddingLeft: '5px'}}>Where Green Meets Serenity</i>
                             </div>
                         </a>
                     </div>
 
                 </div>
                 <div style={styleObjUl}>
-                    <div><a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a></div>
+                    <div style={{paddingLeft: '35%'}}><a href="#" onClick={(e) => handlePlantsClick(e)} style={styleC}>Plants</a></div>
                     <div><a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
                         <h1 className='cart'>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="IconChangeColor"
                                  height="68" width="68">
                                 <rect width="156" height="156" fill="none"></rect>
-                                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" style={styleB}>
+                                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" style={styleB}>
                                     {calculateTotalCount()}
                                 </text>
                                 <circle cx="80" cy="216" r="16" fill='white'></circle>
@@ -329,8 +338,8 @@ function ProductList() {
                                         <div className="product-price">${inner.cost}</div>
 
 
-                                        <button className="product-button" onClick={() => handleAddToCart(inner)}>Add to
-                                            Cart
+                                        <button className="product-button" onClick={() => handleAddToCart(inner)} disabled={addedToCart[inner.name]}
+                                        >Add to Cart
                                         </button>
                                     </div>
                                 ))}
