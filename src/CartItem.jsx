@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars,react/prop-types */
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
@@ -8,6 +8,7 @@ import './CartItem.css';
 const CartItem = ({ onContinueShopping }) => {
     const cart = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
+    const [addedToCart, setAddedToCart] = useState({});
 
     const calculateTotalAmount = () => {
         let totalCost = 0;
@@ -35,7 +36,12 @@ const CartItem = ({ onContinueShopping }) => {
 
     const handleRemove = (item) => {
         dispatch(removeItem(item));
+        setAddedToCart((prevState) => ({
+            ...prevState,
+            [item.name]: false,
+        }));
     };
+
 
     const calculateTotalCost = (item) => {
         var totalValue = item.cost * item.quantity;
@@ -80,8 +86,8 @@ const CartItem = ({ onContinueShopping }) => {
             </div>
         </div>
     );
-
 };
+
 export default CartItem;
 
 
