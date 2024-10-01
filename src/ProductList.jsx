@@ -339,7 +339,7 @@ function ProductList() {
 
 
                                         <button className="product-button" onClick={() => handleAddToCart(inner)}
-                                                disabled={addedToCart[inner.name]}>{addedToCart[inner.name ? "Added" : "Add to Cart"]}
+                                                disabled={addedToCart[inner.name]}>{addedToCart[inner.name] ? "Added" : "Add to Cart"}
                                         </button>
                                     </div>
                                 ))}
